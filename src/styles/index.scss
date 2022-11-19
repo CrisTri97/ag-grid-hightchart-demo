@@ -1,0 +1,51 @@
+@import "./reset.scss";
+@import "./theme.scss";
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  overflow-x: hidden;
+  height: fit-content;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  .star-icon {
+    color: rgb(243, 233, 220);
+    &.active {
+      color: orange;
+    }
+    margin-left: 10px;
+    &::after {
+      content: "favorites";
+      position: absolute;
+      top: 50%;
+      left: 55%;
+      border-radius: 10px;
+      text-align: center;
+      padding: 5px 20px;
+      background-color: orange;
+      color: white;
+      font-size: 15px;
+      opacity: 0;
+      display: none;
+      transition: all 0.2s ease;
+    }
+    &:hover {
+      color: orange;
+      cursor: pointer;
+      &::after {
+        display: inline;
+        opacity: 1;
+      }
+    }
+  }
+}
