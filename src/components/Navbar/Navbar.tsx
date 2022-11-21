@@ -8,7 +8,7 @@ import React, { useState } from "react";
 import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
 import "./Navbar.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { rootState } from "../interface";
+import { rootState } from "../../../interface";
 import { setTheme } from "../../redux/themeSlice";
 import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
 

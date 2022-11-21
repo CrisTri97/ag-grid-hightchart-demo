@@ -8,13 +8,6 @@ import TimeSeries from "./TimeSeries/TimeSeries";
 import StarIcon from "@mui/icons-material/Star";
 import GridModel from "../GridModel/GridModel";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  updateGrid,
-  updateHeatmap,
-  updateLine,
-  updatePipe,
-  updateTimeSeries,
-} from "../../redux/favoriteSlice";
 
 const Charts = () => {
   const [grid, setGrid] = useState(false);
@@ -25,68 +18,11 @@ const Charts = () => {
   const { arrayComponent } = useSelector((state: any) => state.favorites);
   const dispatch = useDispatch();
 
-  const handleClick = (value: string) => {
-    switch (value) {
-      case "Grid":
-        if (grid === false) {
-          setGrid(true);
-          dispatch(updateGrid(true));
-        } else {
-          setGrid(false);
-          dispatch(updateGrid(false));
-        }
-
-        break;
-      case "Line":
-        if (line === false) {
-          setLine(true);
-          dispatch(updateLine(true));
-        } else {
-          setLine(false);
-          dispatch(updateLine(false));
-        }
-
-        break;
-      case "Heatmap":
-        if (heatmap === false) {
-          setHeatmap(true);
-          dispatch(updateHeatmap(true));
-        } else {
-          setHeatmap(false);
-          dispatch(updateHeatmap(false));
-        }
-        break;
-      case "Pipe":
-        if (pipe === false) {
-          setPipe(true);
-          dispatch(updatePipe(true));
-        } else {
-          setGrid(false);
-          dispatch(updatePipe(false));
-        }
-
-        break;
-      case "TimeSeries":
-        if (grid === false) {
-          setTimeSeries(true);
-          dispatch(updateTimeSeries(true));
-        } else {
-          setTimeSeries(false);
-          dispatch(updateTimeSeries(false));
-        }
-
-        break;
-
-      default:
-        break;
-    }
-  };
-
   console.log("check state line , pipe", line, pipe);
 
   return (
     <div className="charts">
-      <div className="chart">
+      {/* <div className="chart">
         <h1 className="title">
           Ag Grid
           <span
@@ -145,7 +81,7 @@ const Charts = () => {
           </span>
         </h1>
         <TimeSeries />
-      </div>
+      </div> */}
     </div>
   );
 };

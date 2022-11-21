@@ -47,3 +47,10 @@ export interface CountryData {
   Province: String;
   Recovered: Number;
 }
+
+export interface Chart {
+  id: number;
+  isFavorited: boolean;
+  chartName: string;
+  chartTitle: string;
+}

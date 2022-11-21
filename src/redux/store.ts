@@ -1,5 +1,5 @@
 import themeReducer from "./themeSlice";
-import favoriteReducer from "./favoriteSlice";
+import favoriteReducer from "./chartSlice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export default configureStore({

@@ -4,7 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import "./Layout.scss";
 import "../../styles/theme.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { rootState } from "../interface";
+import { rootState } from "../../../interface";
 
 const Layout = () => {
   const { theme } = useSelector((state: rootState) => state.theme);

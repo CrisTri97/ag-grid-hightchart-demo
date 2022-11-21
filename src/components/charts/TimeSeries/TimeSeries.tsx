@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
+import StarIcon from "@mui/icons-material/Star";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { rootState } from "../../interface";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
+import { useDispatch, useSelector } from "react-redux";
+import { rootState } from "../../../../interface";
+import { updateChart } from "../../../redux/chartSlice";
 
 const generateOptions = (data: [], darkMode: any) => {
   return {
@@ -55,8 +57,12 @@ const generateOptions = (data: [], darkMode: any) => {
     ],
   };
 };
+interface TimeProps {
+  id: number;
+  isFavorited: boolean;
+}
 
-const TimeSeries = () => {
+const TimeSeries: React.FC<TimeProps> = (props) => {
   const [options, setOptions] = useState({});
   const darkMode = useSelector((state: rootState) => state.theme.theme);
   useEffect(() => {
@@ -70,8 +76,27 @@ const TimeSeries = () => {
       setOptions(generateOptions(data, darkMode));
     });
   }, [darkMode]);
+
+  const dispatch = useDispatch();
+
+  const handleClick = (id: number) => {
+    if (props.isFavorited) {
+      dispatch(updateChart({ id, isFavorited: false }));
+    } else {
+      dispatch(updateChart({ id, isFavorited: true }));
+    }
+  };
   return (
     <div>
+      <p className="title">
+        Time Series Chart
+        <span
+          className={`star-icon ${props.isFavorited && "active"}`}
+          onClick={() => handleClick(props.id)}
+        >
+          <StarIcon />
+        </span>
+      </p>{" "}
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );

@@ -3,8 +3,9 @@ import Highcharts from "highcharts/highstock";
 import PieChart from "highcharts-react-official";
 import axios from "axios";
 import StarIcon from "@mui/icons-material/Star";
-import { useSelector } from "react-redux";
-import { rootState } from "../../interface";
+import { useDispatch, useSelector } from "react-redux";
+import { rootState } from "../../../../interface";
+import { updateChart } from "../../../redux/chartSlice";
 
 const generateOption = (data: any, darkMode: any) => {
   return {
@@ -59,8 +60,11 @@ const generateOption = (data: any, darkMode: any) => {
     ],
   };
 };
-
-const PipeChart = () => {
+interface PipeProps {
+  id: number;
+  isFavorited: boolean;
+}
+const PipeChart: React.FC<PipeProps> = (props) => {
   const [options, setOptions] = useState({});
   const darkMode = useSelector((state: rootState) => state.theme.theme);
   useEffect(() => {
@@ -76,8 +80,27 @@ const PipeChart = () => {
       setOptions(generateOption(dataMap, darkMode));
     });
   }, [darkMode]);
+
+  const dispatch = useDispatch();
+
+  const handleClick = (id: number) => {
+    if (props.isFavorited) {
+      dispatch(updateChart({ id, isFavorited: false }));
+    } else {
+      dispatch(updateChart({ id, isFavorited: true }));
+    }
+  };
   return (
     <div>
+      <h1 className="title">
+        Pipe Chart
+        <span
+          className={`star-icon ${props.isFavorited && "active"}`}
+          onClick={() => handleClick(props.id)}
+        >
+          <StarIcon />
+        </span>
+      </h1>{" "}
       <PieChart highcharts={Highcharts} options={options} />
     </div>
   );

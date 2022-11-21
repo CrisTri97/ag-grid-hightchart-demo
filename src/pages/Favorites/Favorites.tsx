@@ -8,46 +8,47 @@ import { useSelector } from "react-redux";
 import StarIcon from "@mui/icons-material/Star";
 import "./Favorites.scss";
 import { time } from "console";
+import { Chart } from "../../../interface";
 const Favorites: React.FC = () => {
-  const { line, heatmap, timeSeries, grid, pipe } = useSelector(
-    (state: any) => state.favorites
-  );
-
-  console.log(grid);
+  const { charts } = useSelector((state: any) => state.favorites);
+  console.log(charts);
 
   return (
     <div className="favorite">
-      <div className="charts">
-        <h2 className="title">All favorite charts</h2>
-        {grid && (
-          <div className="chart">
-            <GridModel />
-          </div>
-        )}
-        {line && (
-          <div className="chart">
-            <LineChart />
-          </div>
-        )}
-        {pipe && (
-          <div className="chart">
-            <PipeChart />
-          </div>
-        )}
-        {heatmap && (
-          <div className="chart">
-            <HeatMap />
-          </div>
-        )}
-        {timeSeries && (
-          <div className="chart">
-            <TimeSeries />
-          </div>
-        )}
-        {!line && !heatmap && !grid && !timeSeries && !pipe && (
-          <p>No charts have been liked </p>
-        )}
-      </div>
+      <h1> Favorites chart</h1>
+      {charts.map((chart: Chart) => (
+        <div key={chart.id} className="chart">
+          {chart.chartName === "Grid" && chart.isFavorited === true ? (
+            <div style={{ display: `${chart.isFavorited != true && "none"}` }}>
+              <GridModel id={chart.id} isFavorited={chart.isFavorited} />
+            </div>
+          ) : chart.chartName === "Line" && chart.isFavorited === true ? (
+            <div style={{ display: `${chart.isFavorited != true && "none"}` }}>
+              {" "}
+              <LineChart id={chart.id} isFavorited={chart.isFavorited} />
+            </div>
+          ) : chart.chartName === "Pipe" && chart.isFavorited === true ? (
+            <div style={{ display: `${chart.isFavorited != true && "none"}` }}>
+              <PipeChart id={chart.id} isFavorited={chart.isFavorited} />
+            </div>
+          ) : chart.chartName === "TimeSeries" && chart.isFavorited === true ? (
+            <div style={{ display: `${chart.isFavorited != true && "none"}` }}>
+              {" "}
+              <TimeSeries id={chart.id} isFavorited={chart.isFavorited} />
+            </div>
+          ) : (
+            chart.chartName === "Heatmap" &&
+            chart.isFavorited === true && (
+              <div
+                style={{ display: `${chart.isFavorited != true && "none"}` }}
+              >
+                {" "}
+                <HeatMap id={chart.id} isFavorited={chart.isFavorited} />
+              </div>
+            )
+          )}
+        </div>
+      ))}
     </div>
   );
 };

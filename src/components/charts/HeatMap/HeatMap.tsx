@@ -6,9 +6,13 @@ import _ from "lodash";
 import StarIcon from "@mui/icons-material/Star";
 import React, { useEffect, useState } from "react";
 import "./HeatMap.scss";
-import { useSelector } from "react-redux";
-import { rootState } from "../../interface";
-
+import { useDispatch, useSelector } from "react-redux";
+import { rootState } from "../../../../interface";
+import { updateChart } from "../../../redux/chartSlice";
+interface HeatMapProps {
+  id: number;
+  isFavorited: boolean;
+}
 HighchartsHeatmap(Highcharts);
 const x = [
   rawData.action,
@@ -85,14 +89,35 @@ const chartOptions = (darkMode: any) => {
   };
 };
 
-const HeatMap = () => {
+const HeatMap: React.FC<HeatMapProps> = (props) => {
   const darkMode = useSelector((state: rootState) => state.theme.theme);
   const [options, setOptions] = useState({});
   useEffect(() => {
     setOptions(chartOptions(darkMode));
   }, [darkMode]);
+
+  const dispatch = useDispatch();
+
+  const handleClick = (id: number) => {
+    if (props.isFavorited) {
+      dispatch(updateChart({ id, isFavorited: false }));
+    } else {
+      dispatch(updateChart({ id, isFavorited: true }));
+    }
+  };
   return (
     <div>
+      <h2>
+        <h1 className="title">
+          Heat Map Chart
+          <span
+            className={`star-icon ${props.isFavorited && "active"}`}
+            onClick={() => handleClick(props.id)}
+          >
+            <StarIcon />
+          </span>
+        </h1>{" "}
+      </h2>
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );

@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import NativeSelect from "@mui/material/NativeSelect";
-import { Countries } from "../interface";
+import { Countries } from "../../../interface";
 
 const Selector: React.FC<Countries> = ({ countries }) => {
   return (
