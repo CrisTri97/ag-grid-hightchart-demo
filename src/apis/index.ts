@@ -1,11 +1,6 @@
 import axios from "axios";
-import moment, { utc } from "moment";
+import moment from "moment";
 
-interface PropsInterface {
-  slug: String;
-  countryId: String;
-  fn?: () => {};
-}
 export const getCountries = () =>
   axios.get("https://api.covid19api.com/countries");
 

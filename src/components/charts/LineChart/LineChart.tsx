@@ -1,13 +1,12 @@
-import React, { useEffect, useState } from "react";
-import "./LineChart.scss";
-import HighchartsReact from "highcharts-react-official";
-import Highcharts from "highcharts";
 import axios from "axios";
+import Highcharts from "highcharts";
+import HighchartsReact from "highcharts-react-official";
 import moment from "moment";
-import StarIcon from "@mui/icons-material/Star";
-import { useDispatch, useSelector } from "react-redux";
-import { rootState } from "../../../../interface";
-import { updateChart } from "../../../redux/chartSlice";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { ChartIProps, rootState } from "../../../../interface";
+import Title from "../../Title/Title";
+import "./LineChart.scss";
 const generateOptions = (data: [], darkMode: any) => {
   const categories = data.map((item: any) =>
     moment(item.Date).format("DD/MM/YYYY")
@@ -61,11 +60,8 @@ const generateOptions = (data: [], darkMode: any) => {
     ],
   };
 };
-interface LineProps {
-  id: number;
-  isFavorited: boolean;
-}
-const LineChart: React.FC<LineProps> = (props) => {
+
+const LineChart: React.FC<ChartIProps> = ({ id, chartTitle, isFavorited }) => {
   const [option, setOption] = useState({});
   const darkMode = useSelector((state: rootState) => state.theme.theme);
   useEffect(() => {
@@ -82,26 +78,9 @@ const LineChart: React.FC<LineProps> = (props) => {
     });
   }, [darkMode]);
 
-  const dispatch = useDispatch();
-
-  const handleClick = (id: number) => {
-    if (props.isFavorited) {
-      dispatch(updateChart({ id, isFavorited: false }));
-    } else {
-      dispatch(updateChart({ id, isFavorited: true }));
-    }
-  };
   return (
     <div className="line-chart">
-      <h1 className="title">
-        Line Chart
-        <span
-          className={`star-icon ${props.isFavorited && "active"}`}
-          onClick={() => handleClick(props.id)}
-        >
-          <StarIcon />
-        </span>
-      </h1>{" "}
+      <Title chartTitle={chartTitle} id={id} isFavorited={isFavorited} />
       <HighchartsReact highcharts={Highcharts} options={option} />
     </div>
   );

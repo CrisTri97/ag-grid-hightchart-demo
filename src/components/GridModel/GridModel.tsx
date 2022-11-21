@@ -1,25 +1,13 @@
-import React, { useState } from "react";
+import { ColDef, ValueFormatterParams } from "ag-grid-community";
 import { AgGridReact } from "ag-grid-react";
-import "./GridModel.scss";
-// import "ag-grid-community/styles/ag-grid.css";
-// import "ag-grid-community/styles/ag-theme-balham.css";
-import { useDispatch, useSelector } from "react-redux";
-import { Chart, rootState } from "../../../interface";
-import { CovidData } from "../../../interface";
-import {
-  ColDef,
-  GridReadyEvent,
-  ValueFormatterParams,
-} from "ag-grid-community";
 import moment from "moment";
-import StarIcon from "@mui/icons-material/Star";
-import { stubFalse } from "lodash";
-import { updateChart } from "../../redux/chartSlice";
-interface GridProps {
-  id: number;
-  isFavorited: boolean;
-}
-const GridModel: React.FC<GridProps> = (props) => {
+import React from "react";
+import { useSelector } from "react-redux";
+import { ChartIProps, CovidData, rootState } from "../../../interface";
+import Title from "../Title/Title";
+import "./GridModel.scss";
+
+const GridModel: React.FC<ChartIProps> = ({ id, isFavorited, chartTitle }) => {
   const [rowData, setRowData] = React.useState<CovidData[]>([]);
 
   const [columnDefs, setColumnDefs] = React.useState<ColDef[]>([
@@ -83,30 +71,13 @@ const GridModel: React.FC<GridProps> = (props) => {
   }, []);
 
   const darkMode = useSelector((state: rootState) => state.theme.theme);
-  const { charts } = useSelector((state: any) => state.favorites);
-  const rowClass = "my-row";
-  const [isLike, setIsLike] = useState(false);
-  const dispatch = useDispatch();
 
-  const handleClick = (id: number) => {
-    if (props.isFavorited) {
-      dispatch(updateChart({ id, isFavorited: false }));
-    } else {
-      dispatch(updateChart({ id, isFavorited: true }));
-    }
-  };
+  const rowClass = "my-row";
+
   return (
     <>
       <div className={`model ag-theme-balham${darkMode ? "" : "-dark"}`}>
-        <h1 className="title">
-          Ag Grig
-          <span
-            className={`star-icon ${props.isFavorited && "active"}`}
-            onClick={() => handleClick(props.id)}
-          >
-            <StarIcon />
-          </span>
-        </h1>{" "}
+        <Title chartTitle={chartTitle} id={id} isFavorited={isFavorited} />
         <AgGridReact
           rowStyle={{ width: "100%" }}
           rowClass={rowClass}

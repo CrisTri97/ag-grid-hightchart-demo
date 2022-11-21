@@ -1,18 +1,14 @@
 import Highcharts from "highcharts";
-import HighchartsHeatmap from "highcharts/modules/heatmap";
 import HighchartsReact from "highcharts-react-official";
-import rawData from "./data";
+import HighchartsHeatmap from "highcharts/modules/heatmap";
 import _ from "lodash";
-import StarIcon from "@mui/icons-material/Star";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { ChartIProps, rootState } from "../../../../interface";
+import Title from "../../Title/Title";
+import { data as rawData } from "./data";
 import "./HeatMap.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { rootState } from "../../../../interface";
-import { updateChart } from "../../../redux/chartSlice";
-interface HeatMapProps {
-  id: number;
-  isFavorited: boolean;
-}
+
 HighchartsHeatmap(Highcharts);
 const x = [
   rawData.action,
@@ -89,35 +85,16 @@ const chartOptions = (darkMode: any) => {
   };
 };
 
-const HeatMap: React.FC<HeatMapProps> = (props) => {
+const HeatMap: React.FC<ChartIProps> = ({ id, chartTitle, isFavorited }) => {
   const darkMode = useSelector((state: rootState) => state.theme.theme);
   const [options, setOptions] = useState({});
   useEffect(() => {
     setOptions(chartOptions(darkMode));
   }, [darkMode]);
 
-  const dispatch = useDispatch();
-
-  const handleClick = (id: number) => {
-    if (props.isFavorited) {
-      dispatch(updateChart({ id, isFavorited: false }));
-    } else {
-      dispatch(updateChart({ id, isFavorited: true }));
-    }
-  };
   return (
-    <div>
-      <h2>
-        <h1 className="title">
-          Heat Map Chart
-          <span
-            className={`star-icon ${props.isFavorited && "active"}`}
-            onClick={() => handleClick(props.id)}
-          >
-            <StarIcon />
-          </span>
-        </h1>{" "}
-      </h2>
+    <div className="heatmap">
+      <Title chartTitle={chartTitle} id={id} isFavorited={isFavorited} />
       <HighchartsReact highcharts={Highcharts} options={options} />
     </div>
   );

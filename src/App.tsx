@@ -1,6 +1,4 @@
-import React from "react";
-import Navbar from "./components/Navbar/Navbar";
-import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 
 import Favorites from "./pages/Favorites/Favorites";

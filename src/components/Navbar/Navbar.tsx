@@ -1,16 +1,15 @@
 import { BarChartOutlined } from "@mui/icons-material";
 import GradeOutlinedIcon from "@mui/icons-material/GradeOutlined";
-import ArrowRightOutlinedIcon from "@mui/icons-material/ArrowRightOutlined";
-import { Link } from "react-router-dom";
-import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
-import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
-import React, { useState } from "react";
 import KeyboardDoubleArrowLeftOutlinedIcon from "@mui/icons-material/KeyboardDoubleArrowLeftOutlined";
-import "./Navbar.scss";
+import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
+import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { rootState } from "../../../interface";
 import { setTheme } from "../../redux/themeSlice";
-import NightlightOutlinedIcon from "@mui/icons-material/NightlightOutlined";
+import "./Navbar.scss";
 
 const Navbar: React.FC = () => {
   const [isShow, setIsShow] = useState<Boolean>(false);
