@@ -54,3 +54,9 @@ export interface Chart {
   chartName: string;
   chartTitle: string;
 }
+
+export interface ChartIProps {
+  id: number;
+  isFavorited: boolean;
+  chartTitle: string;
+}

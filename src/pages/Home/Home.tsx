@@ -1,19 +1,13 @@
-import "./Home.scss";
 import React, { useState } from "react";
 import GridModel from "../../components/GridModel/GridModel";
-import Charts from "../../components/charts/Charts";
-import StarIcon from "@mui/icons-material/Star";
-import Selector from "../../components/CountrySelector/Selector";
-import { getCountries } from "../../apis";
+import "./Home.scss";
+import { useSelector } from "react-redux";
 import { Chart, Countries } from "../../../interface";
-import { useDispatch, useSelector } from "react-redux";
-import { Grade } from "@mui/icons-material";
+import { getCountries } from "../../apis";
+import HeatMap from "../../components/charts/HeatMap/HeatMap";
 import LineChart from "../../components/charts/LineChart/LineChart";
 import PipeChart from "../../components/charts/PipeChart/PipeChart";
 import TimeSeries from "../../components/charts/TimeSeries/TimeSeries";
-import HeatMap from "../../components/charts/HeatMap/HeatMap";
-import { updateChart } from "../../redux/chartSlice";
-import { StatusPanelComponent } from "ag-grid-community/dist/lib/components/framework/componentTypes";
 
 const Home = () => {
   const [countries, setCountries] = useState<Countries>();
@@ -32,15 +26,15 @@ const Home = () => {
         {charts.map((chart: Chart) => (
           <div key={chart.id} className="chart">
             {chart.chartName === "Grid" ? (
-              <GridModel id={chart.id} isFavorited={chart.isFavorited} />
+              <GridModel {...chart} />
             ) : chart.chartName === "Line" ? (
-              <LineChart id={chart.id} isFavorited={chart.isFavorited} />
+              <LineChart {...chart} />
             ) : chart.chartName === "Pipe" ? (
-              <PipeChart id={chart.id} isFavorited={chart.isFavorited} />
+              <PipeChart {...chart} />
             ) : chart.chartName === "TimeSeries" ? (
-              <TimeSeries id={chart.id} isFavorited={chart.isFavorited} />
+              <TimeSeries {...chart} />
             ) : chart.chartName === "Heatmap" ? (
-              <HeatMap id={chart.id} isFavorited={chart.isFavorited} />
+              <HeatMap {...chart} />
             ) : (
               "No chart"
             )}
