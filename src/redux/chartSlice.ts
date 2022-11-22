@@ -1,17 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import localStorage from "redux-persist/es/storage";
 
-// const localState = ():Object=>{
-//   if (
-//     JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user)
-//       .currentUser.accessToken
-//   ) {
-//     return JSON.parse(JSON.parse(localStorage.getItem("persist:root")).user)
-//       .currentUser.accessToken;
-//   } else {
-//     return "";
-//   }
-// }
 export const favoriteSlice = createSlice({
   name: "favorite",
   initialState: {

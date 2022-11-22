@@ -9,11 +9,19 @@ import GridModel from "../../components/GridModel/GridModel";
 import "./Favorites.scss";
 const Favorites: React.FC = () => {
   const { charts } = useSelector((state: any) => state.favorites) || [];
-  useEffect(() => {});
+  const [listChart, setListChart] = useState([]);
+  useEffect(() => {
+    if (localStorage.getItem("persist:root") === null) {
+      setListChart([]);
+    } else {
+      setListChart(charts);
+    }
+  }, [listChart, charts]);
+
   return (
     <div className="favorite">
       <h1> Favorites chart</h1>
-      {charts.map((chart: Chart) => (
+      {listChart.map((chart: Chart) => (
         <div key={chart.id} className="chart">
           {chart.chartName === "Grid" && chart.isFavorited === true ? (
             <div style={{ display: `${chart.isFavorited !== true && "none"}` }}>
