@@ -8,10 +8,10 @@ import TimeSeries from "../../components/charts/TimeSeries/TimeSeries";
 import GridModel from "../../components/GridModel/GridModel";
 import "./Favorites.scss";
 const Favorites: React.FC = () => {
-  const { charts } = useSelector((state: any) => state.favorites);
   const [listChart, setListChart] = useState([]);
+  const { charts } = useSelector((state: any) => state.favorites);
   useEffect(() => {
-    if (charts === null) {
+    if (charts === null || undefined) {
       setListChart([]);
     } else {
       setListChart(charts);
