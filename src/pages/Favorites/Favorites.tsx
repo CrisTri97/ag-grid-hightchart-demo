@@ -17,43 +17,57 @@ const Favorites: React.FC = () => {
       setListChart(charts);
     }
   }, [listChart, charts]);
+  console.log(listChart);
 
   return (
     <div className="favorite">
       <h1> Favorites chart</h1>
-      {listChart.map((chart: Chart) => (
-        <div key={chart.id} className="chart">
-          {chart.chartName === "Grid" && chart.isFavorited === true ? (
-            <div style={{ display: `${chart.isFavorited !== true && "none"}` }}>
-              <GridModel {...chart} />
+      {listChart && listChart.length < 0
+        ? "No Value"
+        : listChart.map((chart: Chart) => (
+            <div key={chart.id} className="chart">
+              {chart.chartName === "Grid" && chart.isFavorited === true ? (
+                <div
+                  style={{ display: `${chart.isFavorited !== true && "none"}` }}
+                >
+                  <GridModel {...chart} />
+                </div>
+              ) : chart.chartName === "Line" && chart.isFavorited === true ? (
+                <div
+                  style={{ display: `${chart.isFavorited !== true && "none"}` }}
+                >
+                  {" "}
+                  <LineChart {...chart} />
+                </div>
+              ) : chart.chartName === "Pipe" && chart.isFavorited === true ? (
+                <div
+                  style={{ display: `${chart.isFavorited !== true && "none"}` }}
+                >
+                  <PipeChart {...chart} />
+                </div>
+              ) : chart.chartName === "TimeSeries" &&
+                chart.isFavorited === true ? (
+                <div
+                  style={{ display: `${chart.isFavorited !== true && "none"}` }}
+                >
+                  {" "}
+                  <TimeSeries {...chart} />
+                </div>
+              ) : (
+                chart.chartName === "Heatmap" &&
+                chart.isFavorited === true && (
+                  <div
+                    style={{
+                      display: `${chart.isFavorited !== true && "none"}`,
+                    }}
+                  >
+                    {" "}
+                    <HeatMap {...chart} />
+                  </div>
+                )
+              )}
             </div>
-          ) : chart.chartName === "Line" && chart.isFavorited === true ? (
-            <div style={{ display: `${chart.isFavorited !== true && "none"}` }}>
-              {" "}
-              <LineChart {...chart} />
-            </div>
-          ) : chart.chartName === "Pipe" && chart.isFavorited === true ? (
-            <div style={{ display: `${chart.isFavorited !== true && "none"}` }}>
-              <PipeChart {...chart} />
-            </div>
-          ) : chart.chartName === "TimeSeries" && chart.isFavorited === true ? (
-            <div style={{ display: `${chart.isFavorited !== true && "none"}` }}>
-              {" "}
-              <TimeSeries {...chart} />
-            </div>
-          ) : (
-            chart.chartName === "Heatmap" &&
-            chart.isFavorited === true && (
-              <div
-                style={{ display: `${chart.isFavorited !== true && "none"}` }}
-              >
-                {" "}
-                <HeatMap {...chart} />
-              </div>
-            )
-          )}
-        </div>
-      ))}
+          ))}
     </div>
   );
 };
