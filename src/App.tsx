@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Layout from "./components/Layout/Layout";
 
@@ -5,6 +6,7 @@ import Favorites from "./pages/Favorites/Favorites";
 import Home from "./pages/Home/Home";
 
 function App() {
+  const { charts } = useSelector((state: any) => state.favorites) || [];
   const router = createBrowserRouter([
     {
       path: "/",
@@ -16,7 +18,7 @@ function App() {
         },
         {
           path: "/favorites",
-          element: <Favorites />,
+          element: charts === null || undefined ? <Home /> : <Favorites />,
         },
       ],
     },
