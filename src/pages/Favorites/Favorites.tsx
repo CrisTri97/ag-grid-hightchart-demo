@@ -11,7 +11,7 @@ const Favorites: React.FC = () => {
   const { charts } = useSelector((state: any) => state.favorites) || [];
   const [listChart, setListChart] = useState([]);
   useEffect(() => {
-    if (localStorage.getItem("persist:root") === null) {
+    if (charts === null) {
       setListChart([]);
     } else {
       setListChart(charts);
