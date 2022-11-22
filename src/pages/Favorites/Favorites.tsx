@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Chart } from "../../../interface";
 import HeatMap from "../../components/charts/HeatMap/HeatMap";
@@ -8,9 +8,8 @@ import TimeSeries from "../../components/charts/TimeSeries/TimeSeries";
 import GridModel from "../../components/GridModel/GridModel";
 import "./Favorites.scss";
 const Favorites: React.FC = () => {
-  const { charts } = useSelector((state: any) => state.favorites);
-  console.log(charts);
-
+  const { charts } = useSelector((state: any) => state.favorites) || [];
+  useEffect(() => {});
   return (
     <div className="favorite">
       <h1> Favorites chart</h1>
