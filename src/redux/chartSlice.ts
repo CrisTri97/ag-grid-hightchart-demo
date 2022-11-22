@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import localStorage from "redux-persist/es/storage";
 
 export const favoriteSlice = createSlice({
   name: "favorite",
